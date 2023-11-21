@@ -106,7 +106,7 @@ print("Joinign data from all the libraries into one tabel..................... "
 ###Adding sequence to zOTU_table with add_seq_to_zotu.py:
 os.system("""for file in *.fasta; do
     SampleName=`basename $file .zotus.fasta`
-    /mnt/matrix/symbio/Informative_indexes_script/add_seq_to_zotu.py "$SampleName"_zotu_table.txt "$SampleName".zotus.fasta "$SampleName"_zotu_table_with_seq.txt
+    /mnt/qnap/users/symbio/software/Informative_indexes_script/add_seq_to_zotu.py "$SampleName"_zotu_table.txt "$SampleName".zotus.fasta "$SampleName"_zotu_table_with_seq.txt
 done""")
 
 os.system("mkdir raw_zotu && mv *_zotu_table.txt raw_zotu && mv *zotus.fasta raw_zotu")
@@ -211,14 +211,14 @@ print("Assigning taxonomy..................... ", end="")
 ###Assigning taxonomy:
 #Please pay attention to what cutoff value you want to use!
 if type_of_data == "COI":
-    os.system("""vsearch --sintax new_zotus.fasta -db /mnt/matrix/symbio/db/MIDORI/MIDORI_with_tax_spikeins_endo_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
-    vsearch --sintax otus.fasta -db /mnt/matrix/symbio/db/MIDORI/MIDORI_with_tax_spikeins_endo_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")
+    os.system("""vsearch --sintax new_zotus.fasta -db /mnt/qnap/users/symbio/software/databases/MIDORI_with_tax_spikeins_endo_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
+    vsearch --sintax otus.fasta -db /mnt/qnap/users/symbio/software/databases/MIDORI_with_tax_spikeins_endo_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")
 elif type_of_data == "16SV4":
-    os.system("""vsearch --sintax new_zotus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
-vsearch --sintax otus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")
+    os.system("""vsearch --sintax new_zotus.fasta -db /mnt/qnap/users/symbio/software/databases/SILVA_endo_spikeins_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
+vsearch --sintax otus.fasta -db /mnt/qnap/users/symbio/software/databases/SILVA_endo_spikeins_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")
 elif type_of_data == "16SV1-V2":
-    os.system("""vsearch --sintax new_zotus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
-vsearch --sintax otus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")    
+    os.system("""vsearch --sintax new_zotus.fasta -db /mnt/qnap/users/symbio/software/databases/SILVA_endo_spikeins_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
+vsearch --sintax otus.fasta -db /mnt/qnap/users/symbio/software/databases/SILVA_endo_spikeins_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")    
     
 ###Removing redundant info from out taxonomy files:
 os.system("""sed -i 's/[dpcofgs]\://g' zotus.tax
